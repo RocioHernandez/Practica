@@ -1,70 +1,135 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: DELL
-  Date: 06/10/2015
-  Time: 12:12 PM
---%>
-
-<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
-    <title>Persona</title>
-    <g:if env="development"><link rel="stylesheet" href="${resource(dir: 'css', file: 'Estilos.css')}" type="text/css"></g:if>
-</head>
+    <head>
+        <title>Persona</title>
+        <g:javascript library="jquery"/>
+        <r:layoutResources/>
+        <script>
+
+
+        </script>
+        <g:javascript>
+            function filtradoFecha(fecha) {
+            ${remoteFunction(controller: 'persona',
+                    action: 'buscarFEcha',
+                    update: 'todoContenido',
+                    params: "'fecha='+fecha")};
+            }
+
+            function cambiarfiltro(opcion) {
+            ${remoteFunction(controller: 'persona',
+                    action: 'cambiarFiltro',
+                    update: 'tipoBusqueda',
+                    params: "'opcion='+opcion")};
+            }
+
+            function buscarRangoFechas(fechaIni, fechaFin) {
+            ${remoteFunction(controller: 'persona',
+                    action: 'buscarPorRangoFecha',
+                    update: 'todoContenido',
+                    params: "'fechaIni='+fechaIni + '&fechaFin='+fechaFin")};
+            }
+
+            function buscarPorNombre(nombre) {
+            ${remoteFunction(controller: 'persona',
+                    action: 'buscarPorNombre',
+                    update: 'todoContenido',
+                    params: "'nombre='+nombre")};
+            }
+
+            function buscarPorApellidoPaterno(apellidoPaterno) {
+            ${remoteFunction(controller: 'persona',
+                    action: 'buscarPorApellidoPaterno',
+                    update: 'todoContenido',
+                    params: "'apellidoPaterno='+apellidoPaterno")};
+            }
+            function buscarPorApellidoMaterno(apellidoMaterno) {
+            ${remoteFunction(controller: 'persona',
+                    action: 'buscarPorApellidoMaterno',
+                    update: 'todoContenido',
+                    params: "'apellidoMaterno='+apellidoMaterno")};
+            }
 
 
 
-<body>
+        </g:javascript>
 
-<div id="contenedor">
-    <g:link  action="create"  controller="persona" >
-        <button>
-            Nueva Persona
+    </head>
+    <body>
+
+    <div id="todoContenido">
+        <div id="opciondebusqueda">
+            Buscar por:
+            <g:select name="opciones" from="${['Rango de fecha', 'Nombre', 'ApellidoPaterno','Apellido Materno']}"
+                      keys="[1,2,3,4]"
+                      noSelection="['': 'Seleccionar...']"
+                      id="opciones"
+                      value="${params.opciones}"
+                      onchange="cambiarfiltro(this.value)"
+            />
+        </div>
+        <div id="tipoBusqueda">
+            <g:render template="tipoBusqueda"></g:render>
+        </div>
+        %{--<div id="buscarporFecha">
+            <label>Fecha: </label>
+            <input type="text" name="fechabucar" id="fechabucar">
+            <button type="button" id="buscar" name="buscar" onclick="filtradoFecha(document.getElementById('fechabucar').value)";>
+        Buscar por fecha
         </button>
+        </div>--}%
+        <g:link  action="create"  controller="persona" >
+            <button>
+                Nueva Persona
+            </button>
 
-    </g:link>
-<table class="table">
-<thead>
-<tr>
-    <td> ID </td>
-    <td> Nombre</td>
-    <td> Apellido Paterno</td>
-    <td> Apellido Materno</td>
-    <td> Edad</td>
-    <td> Acciones</td>
+        </g:link>
+        <div id="contenedor">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td> ID </td>
+                    <td> Nombre</td>
+                    <td> Apellido Paterno</td>
+                    <td> Apellido Materno</td>
+                    <td> Edad</td>
+                    <td> Acciones</td>
 
-</tr>
+                </tr>
 
-</thead >
-<tbody>
-<g:each in="${personas}" var="persona" >
-    <tr>
+                </thead >
+                <tbody>
+                <g:each in="${personas}" var="persona" >
+                    <tr>
 
-            <td class="text-center" onclick='document.location = "<g:createLink controller="persona" action="detalle2" id='${persona.id}'/> "'>
-                ${persona.id}
-            </td>
+                        <td class="text-center" onclick='document.location = "<g:createLink controller="persona" action="detalle2" id='${persona.id}'/> "'>
+                            ${persona.id}
+                        </td>
 
 
-        <td> ${persona.nombre}</td>
-        <td> ${persona.apellidoPaterno}</td>
-        <td> ${persona.apellidoMaterno}</td>
-        <td> ${persona.edad}</td>
-        <td>
-           %{-- <g:link controller="persona" action="detalle" id='${persona.id}'>
-                Detalle
-            </g:link>
+                        <td> ${persona.nombre}</td>
+                        <td> ${persona.apellidoPaterno}</td>
+                        <td> ${persona.apellidoMaterno}</td>
+                        <td> ${persona.edad}</td>
+                        <td>
+                             <g:link controller="persona" action="detalle" id='${persona.id}'>
+                                 Detalle
+                             </g:link>
 
-            <g:link controller="persona" action="">Editar</g:link>
-            <g:link constroller="persona" action="">Eliminar</g:link>--}%
-        </td>
+                             <g:link controller="persona" action="">Editar</g:link>
+                             <g:link constroller="persona" action="">Eliminar</g:link>
+                        </td>
 
-    </tr>
+                    </tr>
 
-</g:each>
+                </g:each>
 
-</tbody>
+                </tbody>
 
-</table>
-</div>
-</body>
+            </table>
+        </div>
+    </div>
+
+    <r:layoutResources/>
+    </body>
+
 </html>

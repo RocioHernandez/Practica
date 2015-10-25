@@ -2,6 +2,7 @@ package practica
 
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
+import org.springframework.format.annotation.DateTimeFormat
 
 import java.text.SimpleDateFormat
 
@@ -64,6 +65,7 @@ class PersonaService {
         persona
 
     }
+
 
 
 }
