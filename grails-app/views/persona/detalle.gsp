@@ -43,7 +43,7 @@
                     <label> Nombre: </label>
                 </td>
                 <td>
-                    <g:textField name="nombre" id="nombre" value="${params.nombre}" disabled="disabled"></g:textField>
+                    <g:textField name="nombre" id="nombre" value="${persona?.nombre}" disabled="disabled"></g:textField>
                 </td>
             </tr>
             <tr>
@@ -51,7 +51,7 @@
                     <label> Apellido Paterno: </label>
                 </td>
                 <td>
-                    <g:textField name="apellidoPaterno" id="apellidoPaterno" value="${params.apellidoPaterno}" disabled="disabled"></g:textField>
+                    <g:textField name="apellidoPaterno" id="apellidoPaterno" value="${persona?.apellidoPaterno}" disabled="disabled"></g:textField>
                 </td>
             </tr>
             <tr>
@@ -59,7 +59,7 @@
                     <label> Apellido Materno: </label>
                 </td>
                 <td>
-                    <g:textField name="apellidoMaterno" id="apellidoMaterno" value="${params.apellidoMaterno}" disabled="disabled"></g:textField>
+                    <g:textField name="apellidoMaterno" id="apellidoMaterno" value="${persona?.apellidoMaterno}" disabled="disabled"></g:textField>
                 </td>
             </tr>
             <tr>
@@ -67,7 +67,7 @@
                     <label> Edad: </label>
                 </td>
                 <td>
-                    <g:textField name="edad" id="edad" value="${params.edad}" disabled="disabled"></g:textField>
+                    <g:textField name="edad" id="edad" value="${persona?.edad}" disabled="disabled"></g:textField>
                 </td>
             </tr>
             <tr>
@@ -76,7 +76,7 @@
                 </td>
                 <td>
                     <g:select name="sexo.option" from="${['Femenino', 'Masculino', 'Transgenero']}"
-                              valueMessagePrefix="sexo.option" value="${params.sexo}" />
+                              valueMessagePrefix="sexo.option" value="${persona?.sexo}" />
                 </td>
             </tr>
             <tr>
@@ -84,7 +84,7 @@
                     <label> Direccion: </label>
                 </td>
                 <td>
-                    <g:textField name="direccion" id="direccion" value="${params.direccion}" disabled="disabled"></g:textField>
+                    <g:textField name="direccion" id="direccion" value="${persona?.direccion}" disabled="disabled"></g:textField>
                 </td>
             </tr>
             <tr>
@@ -92,7 +92,7 @@
                     <label> Localidad: </label>
                 </td>
                 <td>
-                    <g:textField name="localidad" id="localidad" value="${params.localidad}" disabled="disabled"> </g:textField>
+                    <g:textField name="localidad" id="localidad" value="${persona?.localidad}" disabled="disabled"> </g:textField>
                 </td>
             </tr>
             <tr>
@@ -100,7 +100,7 @@
                     <label> Pais: </label>
                 </td>
                 <td>
-                    <g:textField name="pais" id="pais" value="${params.pais}" disabled="disabled"></g:textField>
+                    <g:textField name="pais" id="pais" value="${persona?.pais}" disabled="disabled"></g:textField>
                 </td>
             </tr>
             <tr>
@@ -108,7 +108,7 @@
                     <label> Telefono: </label>
                 </td>
                 <td>
-                    <g:textField name="telefono" id="telefono" value="${params.telefono}" disabled="disabled"></g:textField>
+                    <g:textField name="telefono" id="telefono" value="${persona?.telefono}" disabled="disabled"></g:textField>
                 </td>
             </tr>
 
@@ -117,11 +117,11 @@
 
 
         <br>
-
-        <g:link controller="persona" action="index">
-            <button>Regresar</button>
-        </g:link>
     </g:form>
+
+    <g:link controller="persona" action="index">
+        <button>Regresar</button>
+    </g:link>
 </div>
 </body>
 </html>

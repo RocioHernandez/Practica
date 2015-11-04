@@ -53,16 +53,24 @@ class PersonaService {
         println persona
         persona
     }
-    List<Persona> listaPersonas (params){
 
-        List<Persona> listaPersonas=Persona.list()
-        listaPersonas
-    }
 
     def eliminarPersona(Long id){
         Persona persona=new Persona()
         persona.delete(id)
         persona
+
+    }
+
+    Map<Object,Object> listaPersonas (params){
+        def mapa=[:]
+        println(params)
+        List<Persona> listaPersonas=Persona.list([max: params.max, offset: params.offset])
+        listaPersonas
+        mapa.listaPersonas=listaPersonas
+        mapa.totalPersonas=Persona.count()
+
+        mapa
 
     }
 

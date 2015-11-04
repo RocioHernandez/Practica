@@ -8,8 +8,20 @@ import java.text.SimpleDateFormat
 class PersonaController {
         def personaService
     def index() {
-    List<Persona> personas=personaService.listaPersonas(params)
-        render(view: 'index',model: [personas:personas])
+        params.max =Math.min(params.max ? params.int('max'):3,100)
+        println("offset")
+        println(params.offset)
+        if(!params.offset)
+            params.offset=0
+
+        def mapa=personaService.listaPersonas(params)
+        println(params.offset)
+        if(params.offset)
+            render (template: 'listaPersonas', ,model: [personas:mapa.listaPersonas, totalPerrsonas:mapa.totalPersonas, params:params])
+        else
+            render(view: 'index',model: [personas:mapa.listaPersonas, totalPerrsonas:mapa.totalPersonas, params:params])
+        println("index")
+
     }
 
     def create(){
@@ -21,21 +33,23 @@ class PersonaController {
         println params
         Persona persona=personaService.guardarPersona(params)
 
-        detalle(persona.id)
+        index()
     }
 
     def detalle(Long id){
-
+println("en detalle")
         println id
     Persona persona=personaService.consultarPersona(id)
         println persona
-    render view: 'detalle'
+    render view: 'detalle', model:[persona: persona]
     }
 
     def detalle2(){
+        println ("en controller")
         println params
-        Persona persona=personaService.consultarPersona(2)
-        render view: 'detalle'
+        Persona persona=personaService.consultarPersona(params.id)
+        println("persona" + persona)
+        render (view: 'detalle', model:[persona: persona])
     }
 
         def eliminarPersona(Long id){

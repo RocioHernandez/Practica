@@ -7,6 +7,8 @@
 
 
         </script>
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
+
         <g:javascript>
             function filtradoFecha(fecha) {
             ${remoteFunction(controller: 'persona',
@@ -77,56 +79,21 @@
         Buscar por fecha
         </button>
         </div>--}%
-        <g:link  action="create"  controller="persona" >
+%{--        <g:link  action="create"  controller="persona" >
             <button>
                 Nueva Persona
             </button>
 
-        </g:link>
+        </g:link>--}%
         <div id="contenedor">
-            <table class="table">
-                <thead>
-                <tr>
-                    <td> ID </td>
-                    <td> Nombre</td>
-                    <td> Apellido Paterno</td>
-                    <td> Apellido Materno</td>
-                    <td> Edad</td>
-                    <td> Acciones</td>
+            <div name="listaPersonas" id="listaPersonas">
+                <g:render template="listaPersonas" model="[personas:personas]"></g:render>
+                <br>
+                %{--${totalPerrsonas}--}%
+            </div>
+            <util:remotePaginate total="${totalPerrsonas?:0}" params="${params}" controller="persona" action="index" update="listaPersonas"></util:remotePaginate>
 
-                </tr>
-
-                </thead >
-                <tbody>
-                <g:each in="${personas}" var="persona" >
-                    <tr>
-
-                        <td class="text-center" onclick='document.location = "<g:createLink controller="persona" action="detalle2" id='${persona.id}'/> "'>
-                            ${persona.id}
-                        </td>
-
-
-                        <td> ${persona.nombre}</td>
-                        <td> ${persona.apellidoPaterno}</td>
-                        <td> ${persona.apellidoMaterno}</td>
-                        <td> ${persona.edad}</td>
-                        <td>
-                             <g:link controller="persona" action="detalle" id='${persona.id}'>
-                                 Detalle
-                             </g:link>
-
-                             <g:link controller="persona" action="">Editar</g:link>
-                             <g:link constroller="persona" action="">Eliminar</g:link>
-                        </td>
-
-                    </tr>
-
-                </g:each>
-
-                </tbody>
-
-            </table>
-        </div>
+    </div>
     </div>
 
     <r:layoutResources/>
